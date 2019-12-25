@@ -8,7 +8,7 @@ class Header extends Component {
     return (
       <div>
         <AppBar
-          position="fixed"
+          position="relative"
           style={{
             backgroundColor: "transparent",
             boxShadow: "none",
