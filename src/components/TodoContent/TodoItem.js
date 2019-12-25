@@ -1,35 +1,18 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
-class TodoItem extends Component {
-  state = {
-    textFieldValue: ""
-  };
-  _handleTextFieldChange = e => {
-    this.setState({
-      textFieldValue: e.target.value
-    });
-  };
-  onEnterPress = e => {
-    // e.preventDefault();
-    if (e.key === "Enter") {
-      e.preventDefault();
-      console.log("enter");
-    }
-  };
-  render() {
-    return (
-      <div>
-        <TextField
-          id="filled-basic"
-          label="Filled"
-          variant="filled"
-          value={this.state.textFieldValue}
-          onChange={this._handleTextFieldChange}
-          onKeyPress={this.onEnterPress}
-        />
-      </div>
-    );
-  }
-}
+const TodoItem = props => {
+  return (
+    <div>
+      <TextField
+        id="filled-basic"
+        label="Filled"
+        variant="filled"
+        value={props.value}
+        onChange={e => props.onTextChange(e)}
+        onKeyPress={e => props.onEnter(e)}
+      />
+    </div>
+  );
+};
 
 export default TodoItem;
