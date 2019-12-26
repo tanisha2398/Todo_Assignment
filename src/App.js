@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App" style={{ height: "1500px", background: "black" }}>
       <Header />
-      <TodoContent />
+      
     </div>
   );
 }

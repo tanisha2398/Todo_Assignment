@@ -1,10 +1,30 @@
 import React, { Component } from "react";
 import TodoItem from "./TodoItem";
+import TodoListItem from "./TodoListItem";
+import List from "@material-ui/core/List";
+
+// import Checkbox from "material-ui/Checkbox";
 class TodoContent extends Component {
   state = {
     textFieldValue: "",
-    todos: []
+    todos: [],
+    display: false,
+    showTextField: false
   };
+  componentDidMount() {
+    if (localStorage.getItem("todos") == null) {
+      this.setState({
+        todos: []
+      });
+    } else {
+      this.setState({
+      
+        display: true,
+        todos: JSON.parse(localStorage.getItem("todos"))
+      });
+    }
+  }
+
   _handleTextFieldChange = e => {
     this.setState({
       textFieldValue: e.target.value
@@ -25,8 +45,12 @@ class TodoContent extends Component {
         todos.push(todo);
         localStorage.setItem("todos", JSON.stringify(todos));
       }
+      this.props.onClose();
+
       this.setState({
-        todos: JSON.parse(localStorage.getItem("todos"))
+        todos: JSON.parse(localStorage.getItem("todos")),
+        showTextField: false,
+        textFieldValue: ""
       });
     }
   };
@@ -40,15 +64,25 @@ class TodoContent extends Component {
           color: "white"
         }}
       >
+        <List className="todolistitem">
+          {this.state.todos.map((todo, index) => {
+            return <TodoListItem todoItem={todo} key={index} />;
+          })}
+        </List>
         <div className="vn_wrapper">
-          <TodoItem
-            onTextChange={(e) => this._handleTextFieldChange(e)}
-            onEnter={(e) => this.onEnterPress(e)}
-            value={this.state.textFieldValue}
-          />
+          {this.props.addButton  ? (
+            <TodoItem
+              onTextChange={e => this._handleTextFieldChange(e)}
+              onEnter={e => this.onEnterPress(e)}
+              value={this.state.textFieldValue}
+            />
+          ) : (
+            " "
+          )}
         </div>
       </div>
     );
   }
 }
+
 export default TodoContent;

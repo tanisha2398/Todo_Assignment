@@ -5,7 +5,7 @@ const TodoItem = props => {
     <div>
       <TextField
         id="filled-basic"
-        label="Filled"
+        autoFocus
         variant="filled"
         value={props.value}
         onChange={e => props.onTextChange(e)}
