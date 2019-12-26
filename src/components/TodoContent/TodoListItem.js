@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 // import { makeStyles } from "@material-ui/core/styles";
 
 import ListItem from "@material-ui/core/ListItem";
@@ -9,42 +9,49 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
 
-const TodoListItem = props => {
+class TodoListItem extends Component {
   //   const classes = useStyles();
-  const [checked, setChecked] = React.useState([0]);
-
-  const handleToggle = value => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  state = {
+    checked: []
+  };
+  handleToggle = (item, value) => () => {
+    this.props.onDelete(item, value);
+    const currentIndex = this.state.checked.indexOf(value);
+    // console.log("current index", currentIndex);
+    var newChecked = [...this.state.checked];
 
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
-    setChecked(newChecked);
+    this.setState({
+      checked: newChecked
+    });
   };
 
-  return (
-    <ListItem
-      key={props.key}
-      role={undefined}
-      dense
-      button
-      onClick={handleToggle(props.key)}
-    >
-      <ListItemIcon>
-        <Checkbox
-          edge="start"
-          checked={checked.indexOf(props.key) !== -1}
-          tabIndex={-1}
-          disableRipple
-          inputProps={{ "aria-labelledby": props.key }}
-        />
-      </ListItemIcon>
-      <ListItemText id={props.key} primary={props.todoItem} />
-    </ListItem>
-  );
-};
+  render() {
+    return (
+      <ListItem
+        style={{ borderBottom: "1px solid black" }}
+        key={this.props.i}
+        role={undefined}
+        dense
+        button
+        onClick={this.handleToggle(this.props.todoItem, this.props.i)}
+      >
+        <ListItemIcon>
+          <Checkbox
+            edge="start"
+            checked={this.state.checked.indexOf(this.props.i) !== -1}
+            tabIndex={-1}
+            disableRipple
+            inputProps={{ "aria-labelledby": this.props.i }}
+          />
+        </ListItemIcon>
+        <ListItemText id={this.props.i} primary={this.props.todoItem} />
+      </ListItem>
+    );
+  }
+}
 export default TodoListItem;

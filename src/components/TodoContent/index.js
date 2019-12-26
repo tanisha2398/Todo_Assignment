@@ -7,9 +7,7 @@ import List from "@material-ui/core/List";
 class TodoContent extends Component {
   state = {
     textFieldValue: "",
-    todos: [],
-    display: false,
-    showTextField: false
+    todos: []
   };
   componentDidMount() {
     if (localStorage.getItem("todos") == null) {
@@ -18,18 +16,25 @@ class TodoContent extends Component {
       });
     } else {
       this.setState({
-      
-        display: true,
         todos: JSON.parse(localStorage.getItem("todos"))
       });
     }
   }
+  removeItem = (todo, index) => {
+    var list = JSON.parse(localStorage.getItem("todos"));
+    list.splice(index, 1);
+    this.setState({
+      todos: list
+    });
+    localStorage.setItem("todos", JSON.stringify(list));
+  };
 
   _handleTextFieldChange = e => {
     this.setState({
       textFieldValue: e.target.value
     });
   };
+
   onEnterPress = e => {
     // e.preventDefault();
     if (e.key === "Enter") {
@@ -49,7 +54,7 @@ class TodoContent extends Component {
 
       this.setState({
         todos: JSON.parse(localStorage.getItem("todos")),
-        showTextField: false,
+
         textFieldValue: ""
       });
     }
@@ -59,18 +64,27 @@ class TodoContent extends Component {
       <div
         className="center_wrapper"
         style={{
-          backgroundColor: "grey",
+          backgroundColor: "black",
           padding: "10px 60px",
-          color: "white"
+          color: "black"
         }}
       >
-        <List className="todolistitem">
-          {this.state.todos.map((todo, index) => {
-            return <TodoListItem todoItem={todo} key={index} />;
-          })}
-        </List>
+        {this.state.todos.map((todo, index) => {
+          return (
+            <List className="todolistitem">
+              <TodoListItem
+                todoItem={todo}
+                i={index}
+                onDelete={() => {
+                  this.removeItem(todo, index);
+                }}
+              />
+            </List>
+          );
+        })}
+
         <div className="vn_wrapper">
-          {this.props.addButton  ? (
+          {this.props.addButton ? (
             <TodoItem
               onTextChange={e => this._handleTextFieldChange(e)}
               onEnter={e => this.onEnterPress(e)}
