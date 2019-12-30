@@ -50,7 +50,6 @@ class TodoContent extends Component {
         todos.push(todo);
         localStorage.setItem("todos", JSON.stringify(todos));
       }
-      this.props.onClose();
 
       this.setState({
         todos: JSON.parse(localStorage.getItem("todos")),
@@ -61,14 +60,7 @@ class TodoContent extends Component {
   };
   render() {
     return (
-      <div
-        className="center_wrapper"
-        style={{
-          backgroundColor: "black",
-          padding: "10px 60px",
-          color: "black"
-        }}
-      >
+      <div className="center_wrapper">
         {this.state.todos.map((todo, index) => {
           return (
             <List className="todolistitem">

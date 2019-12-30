@@ -5,9 +5,8 @@ import Header from "./components/Header";
 import TodoContent from "./components/TodoContent/index";
 function App() {
   return (
-    <div className="App" style={{ height: "1500px", background: "black" }}>
+    <div>
       <Header />
-      
     </div>
   );
 }

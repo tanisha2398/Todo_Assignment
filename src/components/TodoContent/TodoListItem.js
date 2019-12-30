@@ -32,25 +32,26 @@ class TodoListItem extends Component {
 
   render() {
     return (
-      <ListItem
-        style={{ borderBottom: "1px solid black" }}
-        key={this.props.i}
-        role={undefined}
-        dense
-        button
-        onClick={this.handleToggle(this.props.todoItem, this.props.i)}
-      >
-        <ListItemIcon>
-          <Checkbox
-            edge="start"
-            checked={this.state.checked.indexOf(this.props.i) !== -1}
-            tabIndex={-1}
-            disableRipple
-            inputProps={{ "aria-labelledby": this.props.i }}
-          />
-        </ListItemIcon>
-        <ListItemText id={this.props.i} primary={this.props.todoItem} />
-      </ListItem>
+      <div className="list_item">
+        <ListItem
+          key={this.props.i}
+          role={undefined}
+          dense
+          button
+          onClick={this.handleToggle(this.props.todoItem, this.props.i)}
+        >
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              checked={this.state.checked.indexOf(this.props.i) !== -1}
+              tabIndex={-1}
+              disableRipple
+              inputProps={{ "aria-labelledby": this.props.i }}
+            />
+          </ListItemIcon>
+          <ListItemText id={this.props.i} primary={this.props.todoItem} />
+        </ListItem>
+      </div>
     );
   }
 }

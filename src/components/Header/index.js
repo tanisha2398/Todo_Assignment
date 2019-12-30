@@ -18,10 +18,9 @@ class Header extends Component {
       <div>
         <AppBar
           position="relative"
+          className="appbar"
           style={{
-            backgroundColor: "transparent",
-            boxShadow: "none",
-            padding: "10px 0px"
+            backgroundColor: "transparent"
           }}
         >
           <Toolbar>
